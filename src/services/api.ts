@@ -1,7 +1,7 @@
 import axios from "axios"
 import { OpenAI } from "openai"
 
-const BASE_URL = import.meta.env.VITE_API_URL
+const BASE_URL = import.meta.env.VITE_API_URL || "https://877lyuv7eg.execute-api.ap-south-1.amazonaws.com/dev"
 
 const axiosInstance = axios.create({
   baseURL: BASE_URL,

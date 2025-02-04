@@ -5,33 +5,33 @@ interface ResponseMessageV1Props {
   message: IMessage | undefined;
 }
 
+function getMessage(message: IMessage | undefined):string {
+  if (!message) {
+    return "Welcome! Speak Your Mind!"
+  }
+
+  return message?.message
+}
+
 function ResponseMessageV1(props: ResponseMessageV1Props) {
   const { isLoading, message } = props
 
+  const messageText = getMessage(message)
+
   if (isLoading) {
     return (
-      <div className="-ml-50 -mx-50 my-10 w-screen border-t-5 px-40 border-b-5 border-gray-600 w-100">
-        <div className="text-center py-2 min-h-50 max-h-80 text-3xl">
+      <div className="-ml-50 -mx-50 w-screen border-t-5 px-40 border-b-5 border-gray-600 w-100">
+        <div className="h-full w-full min-h-50 max-h-60 flex items-center justify-center py-2 text-3xl overflow-y-scroll animate-jump animate-once">
           Loading ...
-        </div>
-      </div>
-    )
-  }
-
-  if (!message) {
-    return (
-      <div className="-ml-50 -mx-50 my-10 w-screen border-t-5 px-40 border-b-5 border-gray-600 w-100 overflow-y-scroll">
-        <div className="text-center py-2 min-h-50 max-h-80 h-full text-3xl overflow-y-scroll animate-jump animate-once">
-          Welcome! Speak Your Mind!
         </div>
       </div>
     )
   }
   
   return (
-    <div className="-ml-50 -mx-50 my-10 w-screen border-t-5 px-40 border-b-5 border-gray-600 w-100 overflow-y-scroll">
-      <div className="text-center py-2 min-h-50 max-h-80 h-full text-3xl overflow-y-scroll animate-jump animate-once">
-        {message?.message}
+    <div className="-ml-50 -mx-50 w-screen w-100 border-t-5 px-40 border-b-5 border-gray-600">
+      <div className="h-full w-full min-h-50 max-h-60 flex items-center py-2 text-3xl overflow-y-scroll animate-jump animate-once">
+        {messageText}
       </div>
     </div>
   )
