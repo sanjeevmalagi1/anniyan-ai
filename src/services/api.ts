@@ -1,55 +1,49 @@
-// import axios from "axios"
+import axios from "axios"
+import { OpenAI } from "openai"
 
-const BASE_URL = "http://localhost:3000"
+const BASE_URL = import.meta.env.VITE_API_URL
+
+const axiosInstance = axios.create({
+  baseURL: BASE_URL,
+  headers: {
+    "Content-Type": "application/json"
+  }
+})
 
 export async function createNewThread() {
 
-  const request = new Request(`${BASE_URL}/api/v1/thread`, {
-    method: "POST"
-  })
+  const response = await axiosInstance.post("/api/v1/thread")
 
-  const response = await request.json()
-
-  return response
-}
-
-export async function sendMessageToThread(threadId: string, message: string) {
-  const request = new Request(`${BASE_URL}/api/v1/thread/${threadId}/message`, {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json"
-    },
-    body: JSON.stringify({ message: message })
-  })
-
-  const response = await fetch(request)
-
-  if (!response.ok) {
-    return
+  if (response.status !== 200) {
+    return null
+    
   }
 
-  return Response.json(response)
+  return response.data as OpenAI.Beta.Threads.Thread;
 }
 
+export async function addMessageToThread(threadId: string, message: string) {
 
-export async function runMessageToThread(threadId: string) {
+  const body = {
+    message: message
+  }
 
-  const request = new Request(`${BASE_URL}/api/v1/thread/${threadId}/run`, {
-    method: "POST"
-  })
+  const response = await axiosInstance.post(`/api/v1/thread/${threadId}/run`, body)
 
-  const response = await request.json()
+  if (response.status !== 200) {
+    return null
+  }
 
-  return response
+  return response.data as OpenAI.Beta.Threads.Runs.Run;
 }
 
 export async function getMessageFromThread(threadId: string) {
 
-  const request = new Request(`${BASE_URL}/api/v1/thread/${threadId}/messages`, {
-    method: "GET"
-  })
+  const response = await axiosInstance.get(`/api/v1/thread/${threadId}/messages`)
 
-  const response = await request.json()
+  if (response.status !== 200) {
+    return null;
+  }
 
-  return response
+  return response.data as OpenAI.Beta.Threads.Messages.MessagesPage
 }

@@ -1,35 +1,58 @@
 import { useEffect, useState } from 'react'
 
+
 import leftImage from './assets/left.png'
 import rightImage from './assets/right.png'
 import topImage from './assets/top.png'
 
 import './App.css'
 
-// import VideoLoaderV1 from './components/VideoLoaderV1'
+import VideoLoaderV1 from './components/VideoLoaderV1'
 import ChatBoxV1 from './components/ChatBoxV1'
-import ResponseMessageV1 from './components/ResponseMessageV1';
+import ResponseMessageV1 from './components/ResponseMessageV1'
 
-import { createNewThread, sendMessageToThread } from './services/api';
+import {
+  createNewThread,
+  addMessageToThread,
+} from './services/api'
+
+import {
+  IMessage,
+  pollForAssistantResponse
+} from './services/utils'
 
 function App() {
-  const [ threadId, setThreadId ] = useState<string>("thread_74ECg0uURhTsHLbbXACgwCur");
+  const [ isLoading, setIsLoading ] = useState(true)
+  const [ threadId, setThreadId ] = useState<string>();
+  const [ latestAssistantMessage, setLatestAssistantMessage ] = useState<IMessage>()
 
   const fetchThread = async () => {
     if (threadId) {
       return;
     }
 
-    const response = await createNewThread();
-    setThreadId(response)
+    const thread = await createNewThread();
+
+    if (!thread) {
+      return;
+    }
+
+    const threadid = thread?.id
+    setThreadId(threadid)
+    setIsLoading(false)
   }
+
 
   const handleMessageSubmit = async (message: string) => {
     if (!threadId) {
       return;
     }
   
-    await sendMessageToThread(threadId, message)
+    setIsLoading(true)
+    await addMessageToThread(threadId, message)
+    const newLatestMessage = await pollForAssistantResponse(threadId, latestAssistantMessage)
+    setLatestAssistantMessage(newLatestMessage)
+    setIsLoading(false)
   }
 
   useEffect(() => {
@@ -42,10 +65,10 @@ function App() {
       <img src={leftImage} className="z-1 fixed h-screen left-0" />
       <img src={rightImage} className="z-1 fixed h-screen right-0" />
       
-      {/* <VideoLoaderV1 /> */}
+      <VideoLoaderV1 />
       <div className="pt-25 ml-60 mr-40 h-full relative">
         <div className='overflow-x-y-scroll'>
-          <ResponseMessageV1 />
+          <ResponseMessageV1 isLoading={isLoading} message={latestAssistantMessage} />
 
           <ChatBoxV1
             onSubmit={handleMessageSubmit}

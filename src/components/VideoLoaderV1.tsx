@@ -1,14 +1,15 @@
 import { useEffect, useState } from 'react'
 import Video from "../assets/new_bg.mp4"
 
-function VideoLoaderV1() {
-  const [showVideo, setShowVideo] = useState(true)
+function VideoLoaderV1() {  
+  const [showVideo, setShowVideo] = useState(localStorage.getItem('showVideo') != "false")
 
   const handleVideoEnded = () => {
     hideVideo()
   }
 
   const hideVideo = () => {
+    localStorage.setItem('showVideo', "false")
     setShowVideo(false)
   }
 
@@ -26,7 +27,7 @@ function VideoLoaderV1() {
     <>
       {showVideo && (
         <video autoPlay muted id="myVideo"
-          className="z-2 fixed top-0 left-0 w-full h-full object-cover"
+          className="xs:hidden sm:fixed z-2 top-0 left-0 w-full h-full object-cover"
           onEnded={handleVideoEnded}
         >
           <source src={Video} type="video/mp4" />

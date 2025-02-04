@@ -17,8 +17,7 @@ function ChatBoxV1(props: ChatBoxV1Props) {
     }
 
     onSubmit(message)
-    
-    // onSubmit()
+    setMessage("")
   }
   
   return (
