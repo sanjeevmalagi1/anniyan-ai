@@ -26,8 +26,8 @@ function VideoLoaderV1() {
   return (
     <>
       {showVideo && (
-        <video autoPlay muted id="myVideo"
-          className="xs:hidden sm:fixed z-2 top-0 left-0 w-full h-full object-cover"
+        <video autoPlay muted playsInline id="myVideo"
+          className="fixed z-2 top-0 left-0 w-full h-full object-cover"
           onEnded={handleVideoEnded}
         >
           <source src={Video} type="video/mp4" />
