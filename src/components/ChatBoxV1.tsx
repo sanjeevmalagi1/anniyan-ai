@@ -1,4 +1,4 @@
-import { SyntheticEvent, useRef, useState } from "react";
+import { SyntheticEvent, useState } from "react";
 
 interface ChatBoxV1Props {
   onSubmit: (message: string) => void;
@@ -6,9 +6,8 @@ interface ChatBoxV1Props {
 
 function ChatBoxV1(props: ChatBoxV1Props) {
   const { onSubmit } = props;
-  const formRef = useRef<HTMLFormElement>(null); 
 
-  const [ message, setMessage ] = useState<string>()
+  const [ message, setMessage ] = useState<string>("")
 
   const handleSubmit = (e: SyntheticEvent) => {
     e.preventDefault();
@@ -23,7 +22,7 @@ function ChatBoxV1(props: ChatBoxV1Props) {
 
   return (
     <div className="absolute bottom-5 md:right-35 w-full border-15 border-gray-600 h-75 max-w-110 shadow-[0px_0px_156px_18px_rgba(65,115,113,0.5)]">
-      <form className="h-full flex flex-col" ref={formRef} onSubmit={handleSubmit}>
+      <form className="h-full flex flex-col" onSubmit={handleSubmit}>
         <input
           id="message"
           value={message}

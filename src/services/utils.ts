@@ -50,16 +50,20 @@ export async function pollForAssistantResponse(threadId: string, latestMessage: 
   while (polling && currentPoll < totalPolls) {
     currentPoll += 1;
 
+    if (currentPoll > 6) {
+      await new Promise((resolve) => setTimeout(resolve, 2000)); // Wait 3s before each poll
+    }
+    
     try {
       const messages = await getMessageFromThread(threadId)
-      
+
       if (!messages) {
         return;
       }
       const assistantMessages = filterMessages(messages, "assistant")
       const latestAssistantMessage = getLatestMessage(assistantMessages)
 
-      if (latestAssistantMessage.id !== latestMessage?.id) {
+      if (latestAssistantMessage?.id !== latestMessage?.id) {
         console.log("Assistant Responded:", latestAssistantMessage.message);
         polling = false; // Stop polling when assistant responds
         return latestAssistantMessage
