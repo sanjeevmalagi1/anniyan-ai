@@ -46,15 +46,11 @@ export async function pollForAssistantResponse(threadId: string, latestMessage: 
   let polling = true;
   const totalPolls = 5;
   let currentPoll = 0;
-  let first = true;
 
   while (polling && currentPoll < totalPolls) {
     currentPoll += 1;
 
-    await new Promise((resolve) => setTimeout(resolve, first ? 300 : 3*1000)); // Wait 3s before each poll
-
     try {
-      first = false
       const messages = await getMessageFromThread(threadId)
       
       if (!messages) {
