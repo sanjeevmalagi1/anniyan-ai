@@ -44,7 +44,7 @@ export const getLatestMessage = (messages: IMessage[]): IMessage => {
 
 export async function pollForAssistantResponse(threadId: string, latestMessage: IMessage | undefined) {
   let polling = true;
-  const totalPolls = 5;
+  const totalPolls = 7;
   let currentPoll = 0;
 
   while (polling && currentPoll < totalPolls) {
