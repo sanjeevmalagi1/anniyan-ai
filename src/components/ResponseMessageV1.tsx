@@ -21,7 +21,7 @@ function ResponseMessageV1(props: ResponseMessageV1Props) {
   if (isLoading) {
     return (
       <div className="bg-gray-700/30 backdrop-blur-md px-5 border-t-5 border-b-5 border-gray-600 shadow-[0px_0px_156px_18px_rgba(65,115,113,0.5)]">
-        <div className="font-serif md:px-40 h-full min-h-50 max-h-100  w-full flex justify-center py-2 text-2xl md:text-3xl overflow-y-scroll animate-pulse font-extrabold">
+        <div className="font-serif md:px-40 h-full min-h-50 max-h-100  w-full flex justify-center py-2 text-3xl md:text-5xl overflow-y-scroll animate-pulse font-extrabold">
           <div className="my-auto">Loading ...</div>
         </div>
       </div>
@@ -30,7 +30,7 @@ function ResponseMessageV1(props: ResponseMessageV1Props) {
   
   return (
     <div className="bg-gray-700/30 backdrop-blur-md px-5 border-t-5 border-b-5 border-gray-600 shadow-[0px_0px_156px_18px_rgba(65,115,113,0.5)]">
-      <div className="font-serif md:px-40 h-full min-h-50 max-h-60  w-full flex justify-center py-2 text-2xl md:text-3xl overflow-y-scroll animate-jump animate-once font-extrabold">
+      <div className="font-serif md:px-40 h-full min-h-50 max-h-60  w-full flex justify-center py-2 text-3xl md:text-5xl overflow-y-scroll animate-jump animate-once font-extrabold">
         <div className="my-auto">{messageText}</div>
       </div>
     </div>

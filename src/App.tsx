@@ -61,7 +61,7 @@ function App() {
   }, [])
 
   return (
-    <div className="h-screen text-slate-500 bg-slate-700 bg-[url(/images/hell-background.jpg)] bg-blend-darken">
+    <div className="h-screen text-slate-300 bg-slate-700 bg-[url(/images/hell-background.jpg)] bg-blend-darken">
       <img src={topImage} className="z-1 fixed w-screen left-0 right-0 hidden md:block" />
       <img src={topImage1} className="z-1 fixed w-screen left-0 right-0 md:hidden" />
       <img src={leftImage} className="z-1 fixed h-screen left-0 hidden md:block" />

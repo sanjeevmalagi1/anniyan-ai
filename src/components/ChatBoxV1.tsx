@@ -27,7 +27,7 @@ function ChatBoxV1(props: ChatBoxV1Props) {
           id="message"
           value={message}
           onChange={e => setMessage(e.target.value)}
-          className="flex-1 p-5 w-full opacity-80 bg-gray-700 text-2xl  placeholder-gray-400 text-white"
+          className="font-serif text-slate-300 flex-1 p-5 w-full bg-gray-700/30 backdrop-blur-md text-2xl  placeholder-gray-400"
           placeholder="Write Your Message Here ..." />
         <button
           type="submit"
